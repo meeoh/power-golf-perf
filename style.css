@@ -152,34 +152,3 @@ h2 { font-size: clamp(28px, 3.2vw, 36px); font-weight: 700; }
 }
 
 
-/* Photo placeholders: only used with ?placeholders (see placeholders.js) */
-.ph {
-  position: relative; width: 100%; border-radius: var(--radius);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-  text-align: center; padding: 16px; color: #45624d;
-  background: repeating-linear-gradient(135deg, #e3ece4 0 12px, #dbe6dd 12px 24px);
-  border: 1.5px dashed #a9c3ae;
-}
-.ph svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; opacity: .7; }
-.ph b { font-size: 15px; font-weight: 600; color: #24432e; }
-.ph small { font-size: 12.5px; }
-.ph-num { position: absolute; top: 10px; left: 10px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 999px; background: var(--green); color: #fff; font-size: 12px; font-weight: 700; line-height: 26px; }
-.r-3x2 { aspect-ratio: 3 / 2; }
-.r-16x9 { aspect-ratio: 16 / 9; }
-.r-1x1 { aspect-ratio: 1 / 1; }
-.r-4x5 { aspect-ratio: 4 / 5; }
-.coach .ph { width: 240px; }
-.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
-.gallery figure { margin: 0; }
-.gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: #111; border-radius: var(--radius); }
-.gallery figcaption { font-size: 13.5px; color: var(--muted); margin-top: 8px; }
-.cta-photo { padding: 16px; display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: center; }
-.cta-text { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-right: 8px; }
-.cta-text p { margin: 0; }
-.ph-entrance { margin-top: 24px; max-width: 340px; }
-.ph-badge { position: fixed; right: 16px; bottom: 16px; z-index: 50; background: var(--text); color: #fff; font-size: 13px; font-weight: 500; padding: 8px 14px; border-radius: 999px; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,.2); }
-@media (max-width: 860px) {
-  .gallery { grid-template-columns: 1fr 1fr; }
-  .cta-photo { grid-template-columns: 1fr; }
-  .coach .ph { width: 200px; }
-}

@@ -4,13 +4,48 @@
   if (!new URLSearchParams(location.search).has('placeholders')) return;
   document.documentElement.classList.add('show-placeholders');
 
+  const style = document.createElement('style');
+  style.textContent = `
+    .ph { position: relative; width: 100%; border-radius: 12px; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      padding: 16px; text-align: center; background: #e6e9e6; color: #7b847e;
+      font: 500 14px/1.35 Geist, system-ui, sans-serif; }
+    .ph svg { width: 44px; height: 44px; flex: none; fill: none; stroke: #9aa39d; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round; }
+    .ph b { display: block; font-weight: 600; color: #4d5650; font-size: 14px; max-width: 22em; }
+    .ph small { display: block; font-size: 12px; color: #8a938d; }
+    .ph-num { position: absolute; top: 10px; left: 10px; height: 22px; min-width: 22px; padding: 0 7px;
+      border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; font-weight: 600; line-height: 22px; }
+    .r-3x2 { aspect-ratio: 3 / 2; } .r-16x9 { aspect-ratio: 16 / 9; }
+    .r-1x1 { aspect-ratio: 1 / 1; } .r-4x5 { aspect-ratio: 4 / 5; }
+    .hero-img .ph, .framed .ph { box-shadow: none; }
+    .coach .ph { width: 240px; }
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .gallery figure { margin: 0; }
+    .gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: #111; border-radius: 12px; }
+    .gallery figcaption { font-size: 13.5px; color: #646b66; margin-top: 8px; }
+    .cta-photo { padding: 16px; display: grid; grid-template-columns: 320px 1fr; gap: 28px; align-items: center; }
+    .cta-text { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-right: 8px; }
+    .cta-text p { margin: 0; }
+    .cta-photo .ph { background: #d7e6da; }
+    .ph-entrance { margin-top: 24px; max-width: 340px; }
+    .ph-badge { position: fixed; right: 16px; bottom: 16px; z-index: 50; background: #131714; color: #fff;
+      font: 500 13px/1 Geist, system-ui, sans-serif; padding: 10px 14px; border-radius: 999px; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+    @media (max-width: 860px) {
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .cta-photo { grid-template-columns: 1fr; }
+      .coach .ph { width: 200px; }
+    }`;
+  document.head.append(style);
+
   const ph = (num, title, spec, ratio) => {
     const el = document.createElement('div');
     el.className = `ph ${ratio}`;
     el.setAttribute('role', 'img');
     el.setAttribute('aria-label', `Photo placeholder: ${title}`);
     el.innerHTML = `<span class="ph-num">${num}</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M21 16l-5-5-8 8.5"/></svg>
       <b>${title}</b><small>${spec}</small>`;
     return el;
   };
