@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -166,15 +166,23 @@
   <!-- Facility -->
   <section class="section section-alt" id="facility">
     <div class="container split">
-      <figure class="framed">
-        <img src="assets/photos/facility.jpg" alt="Golfer finishing a swing in the training room, with the club wall and mirror behind" width="1500" height="1000" loading="lazy">
+      <!-- Bay media. Each panel can hold an <img> or a looping video:
+           <video src="assets/video/bay1.mp4" poster="assets/photos/facility.jpg" muted loop playsinline preload="metadata"></video> -->
+      <figure class="framed bay-media">
+        <div class="bay-panel is-active" id="bay-1-panel" role="tabpanel" aria-labelledby="bay-1-tab">
+          <img src="assets/photos/facility.jpg" alt="Bay 1: golfer finishing a swing in the teaching bay, with the club wall and mirror behind" width="1500" height="1000" loading="lazy">
+        </div>
+        <div class="bay-panel" id="bay-2-panel" role="tabpanel" aria-labelledby="bay-2-tab" hidden>
+          <img src="assets/photos/bay2.jpg" alt="Bay 2: golfer mid-swing in the simulator bay with shot data on screen" width="1500" height="1000" loading="lazy">
+        </div>
+        <span class="bay-label" aria-hidden="true">Bay 1 · Teaching</span>
       </figure>
       <div>
         <h2>Facility</h2>
         <p class="body">1,500 sq ft indoor studio with two simulator bays on grass-feel turf, using tour-level balls.</p>
-        <div class="bays">
-          <div><h3>Bay 1 · Teaching</h3><p>High-speed cameras, 3D motion capture, pressure mapping and integrated teaching software.</p></div>
-          <div><h3>Bay 2 · Practice</h3><p>Full ball flight simulation, True Turf mat and a sliding mirror for feedback.</p></div>
+        <div class="bays" role="tablist" aria-label="Bays">
+          <button class="bay-tab" role="tab" id="bay-1-tab" aria-controls="bay-1-panel" aria-selected="true" data-label="Bay 1 · Teaching"><h3>Bay 1 · Teaching</h3><p>High-speed cameras, 3D motion capture, pressure mapping and integrated teaching software.</p></button>
+          <button class="bay-tab" role="tab" id="bay-2-tab" aria-controls="bay-2-panel" aria-selected="false" tabindex="-1" data-label="Bay 2 · Practice"><h3>Bay 2 · Practice</h3><p>Full ball flight simulation, True Turf mat and a sliding mirror for feedback.</p></button>
         </div>
         <ul class="chips">
           <li>Foresight GC2 + HMT</li>
@@ -187,7 +195,7 @@
       </div>
     </div>
     <div class="container gallery">
-      <figure><img src="assets/photos/bay.jpg" alt="Golfer at the top of the backswing in the simulator bay" width="1000" height="666" loading="lazy" style="object-position: 35% 50%"><figcaption>Simulator bay</figcaption></figure>
+      <figure><img src="assets/photos/clubwall.jpg" alt="Wall of club shafts under a Titleist banner" width="666" height="1000" loading="lazy" style="object-position: 50% 30%"><figcaption>Club and shaft wall</figcaption></figure>
       <figure><img src="assets/photos/software.jpg" alt="Golfer at the simulator computer" width="1000" height="666" loading="lazy" style="object-position: 45% 50%"><figcaption>Foresight simulator software</figcaption></figure>
       <figure><img src="assets/photos/room.jpg" alt="Golfer in the follow-through in the training room" width="1000" height="666" loading="lazy" style="object-position: 50% 50%"><figcaption>Training room</figcaption></figure>
       <figure><img src="assets/photos/fitting.jpg" alt="Titleist fitting cart with interchangeable club heads" width="1000" height="666" loading="lazy"><figcaption>Titleist fitting cart</figcaption></figure>
@@ -249,6 +257,41 @@
   const setMenu = open => { menu.hidden = !open; btn.setAttribute('aria-expanded', open); };
   btn.addEventListener('click', () => setMenu(menu.hidden));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Facility: Bay 1 / Bay 2 tabs switch the photo (or video) beside them
+  const tabs = [...document.querySelectorAll('.bay-tab')];
+  const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+  const label = document.querySelector('.bay-label');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  panels.forEach(p => { p.hidden = false; });
+  const selectBay = i => {
+    tabs.forEach((t, j) => {
+      const on = i === j;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      panels[j].classList.toggle('is-active', on);
+      panels[j].setAttribute('aria-hidden', !on);
+      const video = panels[j].querySelector('video');
+      if (video) on && !reduceMotion ? video.play().catch(() => {}) : video.pause();
+    });
+    label.textContent = tabs[i].dataset.label;
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectBay(i));
+    t.addEventListener('keydown', e => {
+      const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (!d) return;
+      e.preventDefault();
+      const n = (i + d + tabs.length) % tabs.length;
+      selectBay(n); tabs[n].focus();
+    });
+  });
+  // On phones the photo sits above the cards; bring it back into view after a tap
+  tabs.forEach((t, i) => t.addEventListener('click', () => {
+    const media = document.querySelector('.bay-media').getBoundingClientRect();
+    if (media.top < 70) window.scrollBy({ top: media.top - 80, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }));
+  selectBay(0);
 </script>
 <script src="placeholders.js?v=4"></script>
 </body>
