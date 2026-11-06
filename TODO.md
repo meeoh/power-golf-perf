@@ -6,13 +6,13 @@ Drop originals into `assets/` (any size, full quality). They'll be cropped and c
 
 | # | File name | Shot | Format | Goes in |
 |---|---|---|---|---|
-| 1 | `hero.jpg` | Kris coaching a student in Bay 1. Student mid-swing, Kris beside them, screens lit up behind. Candid, not posed. | Landscape 3:2 | Hero, right side (replaces lesson screenshot, which moves to Facility) |
+| ~~1~~ ✅ | `hero.jpg` → `photos/coaching.jpg` | Kris coaching a student in Bay 1. Student mid-swing, Kris beside them, screens lit up behind. Candid, not posed. | Landscape 3:2 | Hero, right side (replaces lesson screenshot, which moves to Facility) |
 | 2 | `kris.jpg` | New headshot of Kris. Polo with logo, plain/blurred background, natural light. Get chest-up and waist-up holding a club. | Portrait 4:5, 1200px+ tall | Coach section (replaces current low-res photo) |
 | 3 | `studio.jpg` | Wide shot of both bays, lights on, screens showing a course. From a corner at chest height. | Landscape 3:2 | Facility, left of text (replaces impact screenshot) |
 | 4a | `kvest.jpg` | Close-up of K-Vest sensors on a golfer's back/hips | Square | New 4-photo row under Facility |
 | 4b | `boditrak.jpg` | Feet on the Boditrak mat, heat map on screen if possible | Square | New 4-photo row under Facility |
 | 4c | `launch.jpg` | Ball on tee in the turf mat, launch monitor in frame | Square | New 4-photo row under Facility (4th tile = GASP lesson screenshot) |
-| 5 | `beginner.jpg` | Newer golfer getting a grip/setup tip from Kris | Landscape 16:9 | Programs, left side of the "Not sure which fits?" bar |
+| ~~5~~ ✅ | `beginner.jpg` → `photos/evaluation.jpg` | Newer golfer getting a grip/setup tip from Kris | Landscape 16:9 | Programs, left side of the "Not sure which fits?" bar |
 | 6 | `entrance.jpg` | Unit 7 door / sign at 31 Manitou Dr *(optional)* | Landscape 16:9 | Visit, under contact details (small) |
 
 Shooting tips:
